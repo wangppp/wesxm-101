@@ -1,0 +1,15 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.2",
+        "illuminate/database": "~5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "frontend/app/"
+        }
+    },
+    "scripts": {
+        "frontenddev": "php -S localhost:8888 -t frontend/public frontend/public/index.php"
+    }
+}

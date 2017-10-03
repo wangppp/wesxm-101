@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="oo-test@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.4">
+    <root id="1"/>
+    <database id="2" parent="1" name="oo-test">
+      <ObjectId>104486</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <ObjectId>12669</ObjectId>
+    </database>
+    <database id="4" parent="1" name="laravel">
+      <ObjectId>32473</ObjectId>
+    </database>
+    <database id="5" parent="1" name="mundi-dev">
+      <ObjectId>98022</ObjectId>
+    </database>
+    <database id="6" parent="1" name="shgvp_territory">
+      <ObjectId>103105</ObjectId>
+    </database>
+    <schema id="7" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2017-09-30.00:13:48.492</IntrospectionTimestamp>
+      <IntrospectionStateNumber>250300</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="8" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="9" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="10" parent="2" name="pg_temp_1">
+      <ObjectId>11848</ObjectId>
+    </schema>
+    <schema id="11" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11849</ObjectId>
+    </schema>
+    <schema id="12" parent="2" name="information_schema">
+      <ObjectId>12381</ObjectId>
+    </schema>
+    <sequence id="13" parent="7" name="articles_id_seq">
+      <ObjectId>104487</ObjectId>
+      <StateNumber>250296</StateNumber>
+      <BelongsToColumn>1</BelongsToColumn>
+    </sequence>
+    <table id="14" parent="7" name="articles">
+      <ObjectId>104489</ObjectId>
+      <StateNumber>250300</StateNumber>
+    </table>
+    <column id="15" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>250296</StateNumber>
+      <SequenceName>articles_id_seq</SequenceName>
+      <DefaultExpression>nextval(&apos;articles_id_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="16" parent="14" name="created_at">
+      <Position>2</Position>
+      <DataType>timestamp|0</DataType>
+      <StateNumber>250296</StateNumber>
+    </column>
+    <column id="17" parent="14" name="updated_at">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <StateNumber>250296</StateNumber>
+    </column>
+    <column id="18" parent="14" name="content">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>250296</StateNumber>
+    </column>
+    <index id="19" parent="14" name="articles_pkey">
+      <ObjectId>104496</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="20" parent="14" name="articles_pkey">
+      <ObjectId>104497</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>articles_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/vcs.xml
+frontend/vendor/
+frontend/cached_templates
+vendor/
