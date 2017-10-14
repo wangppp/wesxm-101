@@ -6,7 +6,7 @@
  * Time: 上午12:00
  */
 
-namespace app\models;
+namespace frontend\app\models;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 

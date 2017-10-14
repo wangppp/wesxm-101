@@ -7,7 +7,7 @@
  */
 use Slim\Http\Request;
 use Slim\Http\Response;
-use app\models\Article;
+use frontend\app\models\Article;
 // Routes
 
 $app->get('/', function (Request $request, Response $response) {

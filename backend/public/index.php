@@ -1,7 +1,5 @@
 <?php
-use Slim\Http\Response;
-use Slim\Http\Request;
-use frontend\app\models\Database;
+use backend\app\models\Database;
 
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
@@ -22,6 +20,7 @@ new Database($settings['settings']['db']);
 $app = new \Slim\App($settings);
 
 require __DIR__ . '/../src/dependencies.php';
+require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/routes.php';
 
 $app->run();
