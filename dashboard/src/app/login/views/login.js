@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
+import {setToken} from '../../../services/auth';
+import {withRouter} from 'react-router-dom';
 
 class Login extends Component {
-  static login (e) {
+  constructor (props) {
+    super(props);
+    this.login = this.login.bind(this);
+  }
+  login (e) {
     e.preventDefault();
+    // 拿到history 对象
+    const {history} = this.props;
+
     const login_data = new FormData(e.target);
     let loginRequest = new Request('http://localhost:8889/login', {
       mode: 'cors',
@@ -10,10 +19,13 @@ class Login extends Component {
       body: login_data
     });
     fetch(loginRequest).then(response => {
-      console.log(response);
       return response.json();
     }).then(json => {
-      console.log(json);
+      if (json.status === true && json.access_token) {
+        // 登录成功
+        setToken(json.access_token);
+        history.push('/');
+      }
     }).catch(error => {
       console.log(error);
     })
@@ -21,7 +33,7 @@ class Login extends Component {
 
   render() {
     return (
-      <form action='/' onSubmit={Login.login}>
+      <form action='/' onSubmit={this.login}>
         <input type='text' name='username' placeholder='用户名' />
         <input type='password' name='password' placeholder='密码' />
         <input type='submit'/>
@@ -30,4 +42,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -36,10 +36,10 @@ class Auth extends Model
     public function isExpired() {
         $expired_time = $this->expired_at;
         $current = time();
-        if (empty($expired_time)) {
+        if (!$expired_time) {
             return true;
         }
-        if ((new \DateTime($expired_time))->getTimestamp() >= $current) {
+        if ((new \DateTime($expired_time))->getTimestamp() <= $current) {
             return true;
         }
         return false;
@@ -47,7 +47,9 @@ class Auth extends Model
 
     public function updateToken($token) {
         $expired_time = self::getExpiredTime();
-        $this->update(['access_token' => $token, 'expired_time' => $expired_time]);
+        $this->access_token = $token;
+        $this->expired_at = $expired_time;
+        $this->save();
     }
 
     public static function getExpiredTime() {

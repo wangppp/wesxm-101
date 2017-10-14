@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
 import {Login} from './app/login';
 import {getToken} from './services/auth';
 import './App.css';
@@ -9,17 +9,16 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path={'/'} render={() => (
-            /*每次从localStorage里取出token是费时操作，在初始化的时候取出放在store里*/
-            getToken() ? (
-              <Dashboard/>
-            ) : (
-              <Redirect to={'/login'} />
-            )
-          )} />
-          <Route path={'/login'} render={() => (
-            <Login/>
-          )} />
+          <Switch>
+            <Route path={'/login'} render={() => (
+              <Login/>
+            )} />
+            <Route path={'/'} render={() => (
+              getToken() ?
+                <Dashboard/> :
+                <Redirect to={'/login'}/>
+            )} />
+          </Switch>
         </div>
       </Router>
     );
@@ -62,7 +61,7 @@ const Main = (props) => (
 );
 
 
-const Dashboard = () => (
+const Dashboard = ({match}) => (
   <Root>
     <Sidebar>
       <SidebarItem>
@@ -77,7 +76,11 @@ const Dashboard = () => (
       </SidebarItem>
     </Sidebar>
     <Main>
-      <Route path={'/index'} component={() => (
+      {/*将默认的跳转到 index*/}
+      <Route exact path={'/'} render={() => (
+        <Redirect to={'/index'} />
+      )}/>
+      <Route path={'/index'} render={() => (
         <h2>Index is here, you can customize this page as a component.</h2>
       )} />
     </Main>
