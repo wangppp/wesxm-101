@@ -3,3 +3,4 @@
 frontend/vendor/
 frontend/cached_templates
 vendor/
+node_modules/
