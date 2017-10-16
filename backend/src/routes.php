@@ -8,6 +8,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use backend\app\models\User;
+use frontend\app\models\Article;
 
 
 // 授权 Authorization
@@ -26,3 +27,11 @@ $app->post('/login', function (Request $request, Response $response) {
 
     return $response->withJson(['status' => true, 'access_token' => $token]);
 })->setName('login');
+
+
+// 文章列表
+$app->get('/article_list', function(Request $request, Response $response) {
+    $articles = Article::getAll();
+    return $response->
+        withJson($articles);
+})->setName('article_list');

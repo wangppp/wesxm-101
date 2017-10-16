@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
 import {Login} from './app/login';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import {ArticlePage} from './app/article';
 import {getToken} from './services/auth';
 import './App.css';
+
+const { Content, Footer, Sider } = Layout;
 
 class App extends Component {
   render() {
@@ -25,66 +29,65 @@ class App extends Component {
   }
 }
 
-// 根组件
-const Root = (props) => (
-  <div style={{
-    display: 'flex'
-  }} {...props} />
-);
 
-const Sidebar = (props) => (
-  <div style={{
-    width: '33vw',
-    height: '100vh',
-    overflow: 'auto',
-    background: '#eee'
-  }} {...props} />
-);
+class Dashboard extends Component {
 
-const SidebarItem = (props) => (
-  <div style={{
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    padding: '5px 10px'
-  }} {...props} />
-);
+  state = {
+    collapsed: false,
+  };
 
-const Main = (props) => (
-  <div style={{
-    flex: 1,
-    height: '100vh',
-    overflow: 'auto'
-  }}>
-    <div style={{padding: '20px'}} {...props} />
-  </div>
-);
+  onCollapse = (collapsed) => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  }
 
+  render () {
 
-const Dashboard = ({match}) => (
-  <Root>
-    <Sidebar>
-      <SidebarItem>
-        <Link to={'/index'}>
-          Hello, Route Here
-        </Link>
-      </SidebarItem>
-      <SidebarItem>
-        <Link to={'/login'}>
-          Login
-        </Link>
-      </SidebarItem>
-    </Sidebar>
-    <Main>
-      {/*将默认的跳转到 index*/}
-      <Route exact path={'/'} render={() => (
-        <Redirect to={'/index'} />
-      )}/>
-      <Route path={'/index'} render={() => (
-        <h2>Index is here, you can customize this page as a component.</h2>
-      )} />
-    </Main>
-  </Root>
-);
+    return (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+        >
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu.Item key="1">
+              <Link to={'/article'}>
+                <Icon type="pie-chart" />
+                文章首页
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to={'/login'}>
+                <Icon type="desktop" />
+                登录
+              </Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          {/*<Header style={{ background: '#fff', padding: 0 }} />*/}
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '12px 0' }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+              {/*将默认的跳转到 index*/}
+              <Route exact path={'/'} render={() => (
+                <Redirect to={'/article'} />
+              )}/>
+              <Route path={'/article'} component={ArticlePage} />
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            H?
+          </Footer>
+        </Layout>
+      </Layout>
+    );
+  }
+}
 
 export default App;

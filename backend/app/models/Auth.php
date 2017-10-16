@@ -33,6 +33,18 @@ class Auth extends Model
         $auth->save();
     }
 
+
+    public static function isAlreadyExpired($token) {
+        if(!$token) {
+            return true;
+        }
+        $auth = self::where('access_token', $token)->first();
+        if(!$auth) {
+            return true;
+        }
+        return $auth->isExpired();
+    }
+
     public function isExpired() {
         $expired_time = $this->expired_at;
         $current = time();
