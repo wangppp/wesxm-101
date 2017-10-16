@@ -43,7 +43,7 @@ $app->add(function (Request $req, Response $resp, $next) {
 
 // CORS
 $app->options('/{routes:.+}', function (Request $request, Response $response, $args) {
-    $url = $req->getUri();
+    $url = $request->getUri();
     $host = $url->getHost();
     $allow_host = 'http://adminpanel.epic-think.xyz';
     if ($host == 'http://localhost:3000' || $host == 'http://adminpanel.epic-think.xyz') {
