@@ -43,7 +43,13 @@ $app->add(function (Request $req, Response $resp, $next) {
 
 // CORS
 $app->options('/{routes:.+}', function (Request $request, Response $response, $args) {
-    return $response->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+    $url = $req->getUri();
+    $host = $url->getHost();
+    $allow_host = 'http://adminpanel.epic-think.xyz';
+    if ($host == 'http://localhost:3000' || $host == 'http://adminpanel.epic-think.xyz') {
+        $allow_host = $host;
+    }
+    return $response->withHeader('Access-Control-Allow-Origin', $allow_host)
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');;
 });
