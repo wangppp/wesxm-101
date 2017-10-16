@@ -1,7 +1,7 @@
 import {getToken} from '../auth'
 import fetch from 'axios';
 
-fetch.defaults.baseURL = 'http://localhost:8889';
+fetch.defaults.baseURL = 'http://104.238.140.111:8889';
 fetch.defaults.timeout = '5000';
 
 fetch.interceptors.request.use(
