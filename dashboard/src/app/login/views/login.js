@@ -2,26 +2,7 @@ import React, {Component} from 'react';
 import {setToken} from '../../../services/auth';
 import {withRouter} from 'react-router-dom';
 import { Form, Icon, Input, Button } from 'antd';
-
-class Login extends Component {
-
-  login (e) {
-    e.preventDefault();
-
-  }
-
-  render() {
-    return (
-      <form action='/' onSubmit={this.login}>
-        <input type='text' name='username' placeholder='用户名' />
-        <input type='password' name='password' placeholder='密码' />
-        <input type='submit'/>
-      </form>
-    );
-  }
-}
-
-
+import {fetch} from '../../../services/http';
 
 const FormItem = Form.Item;
 
@@ -53,24 +34,21 @@ class HorizontalLoginForm extends React.Component {
       for (const item in values) {
         login_data.append(item, values[item]);
       }
-      let loginRequest = new Request('http://localhost:8889/login', {
-        mode: 'cors',
-        method: 'POST',
-        body: login_data
-      });
-      fetch(loginRequest).then(response => {
-        return response.json();
-      }).then(json => {
-        console.log(json);
-        if (json.status === true && json.access_token) {
-          // 登录成功
-          setToken(json.access_token);
-          history.push('/');
+
+      fetch.post('/login', login_data).then(
+        response => {
+          const json = response.data;
+          if (json.status === true && json.access_token) {
+            // 登录成功
+            setToken(json.access_token);
+            history.push('/');
+          }
+        },
+        error => {
+          console.log(error);
+          alert(error.response ? error.response.message : '登录失败');
         }
-      }).catch(error => {
-        console.log(error);
-        alert(error.response ? error.response.message : '登录失败');
-      })
+      );
     });
   }
   render() {
