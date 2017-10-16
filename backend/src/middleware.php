@@ -10,12 +10,18 @@ use Slim\Http\Response;
 
 
 $app->add(function (Request $req, Response $resp, $next) {
+    // TO_DO 应该用环境变量来判断使用哪个origin!!!
+    $url = $req->getUri();
+    $host = $url->getHost();
+    $allow_host = 'http://localhost:3000';
+    if ($host == 'http://localhost:3000' || $host == 'http://adminpanel.epic-think.xyz') {
+        $allow_host = $host;
+    }
     $res = $resp
-        ->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+        ->withHeader('Access-Control-Allow-Origin', $allow_host)
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
-    $url = $req->getUri();
     $is_login = preg_match('/.\/login$/', $url);
 
     if(!$is_login) {
