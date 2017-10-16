@@ -35,3 +35,16 @@ $app->get('/article_list', function(Request $request, Response $response) {
     return $response->
         withJson($articles);
 })->setName('article_list');
+
+$app->post('/article/new', function (Request $request, Response $response) {
+    $post = $request->getParsedBody();
+    Article::addNew($post);
+    return $response->withJson(['status' => true, 'message' => '保存成功']);
+});
+
+
+$app->get('/article/detail/{route_title}', function (Request $request, Response $response, $args) {
+    $route_title = $args['route_title'];
+    $article = Article::where('route_title', $route_title)->firstOrFail();
+    return $response->withJson($article);
+});

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Redirect, Switch, withRouter} from 'react-router-dom';
 import {Login} from './app/login';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import {ArticlePage} from './app/article';
+import {ArticlePage, AddNewArticle, ArticleDetail} from './app/article';
 import {getToken} from './services/auth';
 import './App.css';
 
@@ -29,6 +29,23 @@ class App extends Component {
   }
 }
 
+const MyMenu = withRouter(({history}) => (
+  <Menu theme="dark" defaultSelectedKeys={['/article']} onClick={(item) => {
+    history.push(item.key);
+  }} mode="inline">
+    <Menu.Item key="/article">
+      <Icon type="pie-chart" />
+      <span>
+                文章首页
+              </span>
+    </Menu.Item>
+    <Menu.Item key="/login">
+      <Icon type="desktop" />
+      <span>登录</span>
+    </Menu.Item>
+  </Menu>
+));
+
 
 class Dashboard extends Component {
 
@@ -51,20 +68,7 @@ class Dashboard extends Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1">
-              <Link to={'/article'}>
-                <Icon type="pie-chart" />
-                文章首页
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to={'/login'}>
-                <Icon type="desktop" />
-                登录
-              </Link>
-            </Menu.Item>
-          </Menu>
+          <MyMenu/>
         </Sider>
         <Layout>
           {/*<Header style={{ background: '#fff', padding: 0 }} />*/}
@@ -78,11 +82,13 @@ class Dashboard extends Component {
               <Route exact path={'/'} render={() => (
                 <Redirect to={'/article'} />
               )}/>
-              <Route path={'/article'} component={ArticlePage} />
+              <Route exact path={'/article'} component={ArticlePage} />
+              <Route exact path={'/article/new'} component={AddNewArticle} />
+              <Route exact path={'/article/detail/:titleId'} component={ArticleDetail} />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            H?
+            copyright owned
           </Footer>
         </Layout>
       </Layout>

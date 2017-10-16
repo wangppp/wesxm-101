@@ -7,7 +7,7 @@ import EditIcon from 'material-ui-icons/Edit';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
-import {Button} from 'antd';
+import {Button, Tooltip} from 'antd';
 import {fetch} from '../../../services/http';
 import {logOut} from '../../../services/auth';
 
@@ -29,6 +29,18 @@ class ArticlePage extends Component {
     super(props);
     this.state = {
       data: data
+    }
+  }
+
+  addNew () {
+    const {history} = this.props;
+    history.push('/article/new');
+  }
+
+  editArticle (titleId) {
+    const {history} = this.props;
+    return e => {
+      history.push(`/article/detail/${titleId}`);
     }
   }
 
@@ -55,7 +67,7 @@ class ArticlePage extends Component {
   }
 
   render () {
-    const {classes} = this.props;
+    const {classes, history} = this.props;
     return (
       <Paper className={classes.paper} elevation={4}>
         <Typography type="headline" component="h2">
@@ -84,7 +96,7 @@ class ArticlePage extends Component {
                   <TableCell>{n.created_at}</TableCell>
                   <TableCell>{n.updated_at}</TableCell>
                   <TableCell>
-                    <IconButton color='accent'>
+                    <IconButton color='accent' onClick={this.editArticle.bind(this)(n.route_title)} >
                       <EditIcon />
                     </IconButton>
                   </TableCell>
@@ -93,7 +105,11 @@ class ArticlePage extends Component {
             })}
           </TableBody>
         </Table>
-        <Button type={'primary'} shape={'circle'} size={'large'} icon={'plus'}/>
+        <div style={{textAlign: 'right', marginTop: 20}}>
+          <Tooltip title="新增文章">
+            <Button onClick={this.addNew.bind(this)} type={'primary'} shape={'circle'} size={'large'} icon={'plus'}/>
+          </Tooltip>
+        </div>
       </Paper>
     )
   }
