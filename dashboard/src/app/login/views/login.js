@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {setToken} from '../../../services/auth';
+import {setToken, logOut} from '../../../services/auth';
 import {withRouter} from 'react-router-dom';
 import { Form, Icon, Input, Button, Row, Col } from 'antd';
 import {fetch} from '../../../services/http';
@@ -13,6 +13,9 @@ function hasErrors(fieldsError) {
 class HorizontalLoginForm extends React.Component {
   constructor (props) {
     super(props);
+  }
+  componentWillMount () {
+    logOut();
   }
 
   componentDidMount() {
@@ -51,12 +54,14 @@ class HorizontalLoginForm extends React.Component {
       );
     });
   }
+
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
     const userNameError = isFieldTouched('username') && getFieldError('username');
     const passwordError = isFieldTouched('password') && getFieldError('password');
+
     return (
       <Row style={{marginTop: 100}}>
         <Col xs={2} sm={4} md={6} lg={8} xl={10} />

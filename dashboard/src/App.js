@@ -36,12 +36,12 @@ const MyMenu = withRouter(({history}) => (
     <Menu.Item key="/article">
       <Icon type="pie-chart" />
       <span>
-                文章首页
-              </span>
+        文章首页
+      </span>
     </Menu.Item>
     <Menu.Item key="/login">
       <Icon type="desktop" />
-      <span>登录</span>
+      <span>登出</span>
     </Menu.Item>
   </Menu>
 ));

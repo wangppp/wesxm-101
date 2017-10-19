@@ -25,6 +25,16 @@ fetch.interceptors.response.use(
     return response;
   },
   error => {
+    if (error.response) {
+      switch (error.response.status) {
+        // 过期跳转到登录页
+        case 401:
+          // 强制跳转！！！
+          window.location.href = '/login';
+          break;
+      }
+      message.error(error.response.data.message);
+    }
     return Promise.reject(error);
   }
 );

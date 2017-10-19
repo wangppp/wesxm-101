@@ -51,19 +51,7 @@ class ArticlePage extends Component {
       this.setState({
         data: res
       })
-    }).catch(error => {
-      if (error.response) {
-        switch (error.response.status) {
-          case 401:
-            logOut();
-            alert(error.response.data.message);
-            history.push('/login');
-            break;
-          default:
-            return;
-        }
-      }
-    })
+    });
   }
 
   render () {

@@ -27,9 +27,13 @@ class NewArticle extends Component {
             this.setState({
               loading: false
             });
-          }
-        )
-      }
+          },
+          error => {
+            this.setState({
+              loading: false
+            });
+          });
+        }
     });
   }
 
@@ -44,6 +48,13 @@ class NewArticle extends Component {
               rules: [{ required: true, message: '请输入标题' }],
             })(
               <Input prefix={<Icon type="star" style={{ fontSize: 13 }} />} placeholder="标题" />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('english_title', {
+              rules: [{required: true, message: '请输入英文标题哟，需要在路由处展示'}]
+            })(
+              <Input prefix={<Icon type='link' style={{fontSize: 13}} />} placeholder='洋文标题，空格隔开，不能有特殊符号' />
             )}
           </FormItem>
           <FormItem>

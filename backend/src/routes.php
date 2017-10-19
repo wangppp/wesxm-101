@@ -36,6 +36,7 @@ $app->get('/article_list', function(Request $request, Response $response) {
         withJson($articles);
 })->setName('article_list');
 
+// 新增文章
 $app->post('/article/new', function (Request $request, Response $response) {
     $post = $request->getParsedBody();
     Article::addNew($post);

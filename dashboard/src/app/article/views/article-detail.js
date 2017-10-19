@@ -27,7 +27,6 @@ class ArticleDetail extends Component {
         this.setState({
           loading: false
         });
-        message.error('找不到文章');
       }
     )
   }
